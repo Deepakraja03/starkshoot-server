@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { User } from '../models/User';
 import { Room } from '../models/Room';
 import { StakingHistory } from '../models/StakingHistory';
+import { Leaderboard } from '../models/Leaderboard';
 
 // Update staked status
 export const updateStakedStatus = async (req: Request, res: Response) => {
@@ -157,4 +158,58 @@ export const getRoomsPlayedWithUsernames = async (req: Request, res: Response) =
     } catch (err) {
       res.status(500).json({ error: 'Failed to fetch rooms and usernames' });
     }
-};  
+};
+
+// GET /api/user/is-staked/:walletAddress
+export const getUserStakeStatus = async (req: Request, res: Response) => {
+    const { walletAddress } = req.params;
+  
+    try {
+      const user = await User.findOne({ walletAddress });
+  
+      if (!user) {
+        res.status(404).json({ error: 'User not found' });
+      } else {
+        res.json({ isStaked: user.isStaked });
+      }
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to retrieve stake status' });
+    }
+};
+
+// POST /api/leaderboard/add
+export const addLeaderboardEntry = async (req: Request, res: Response) => {
+    const { walletAddress, kills, score, roomId, username } = req.body;
+  
+    try {
+      const entry = new Leaderboard({ walletAddress, kills, score, roomId, username });
+      await entry.save();
+      res.json(entry);
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to add leaderboard entry' });
+    }
+  };
+  
+  // GET /api/leaderboard/wallet/:walletAddress
+  export const getLeaderboardByWallet = async (req: Request, res: Response) => {
+    const { walletAddress } = req.params;
+  
+    try {
+      const entries = await Leaderboard.find({ walletAddress });
+      res.json(entries);
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to retrieve leaderboard data by wallet address' });
+    }
+  };
+  
+  // GET /api/leaderboard/room/:roomId
+  export const getLeaderboardByRoom = async (req: Request, res: Response) => {
+    const { roomId } = req.params;
+  
+    try {
+      const entries = await Leaderboard.find({ roomId });
+      res.json(entries);
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to retrieve leaderboard data by room ID' });
+    }
+};

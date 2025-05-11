@@ -1,0 +1,11 @@
+import mongoose from 'mongoose';
+
+const leaderboardSchema = new mongoose.Schema({
+  walletAddress: { type: String, required: true },
+  kills: { type: Number, required: true },
+  score: { type: Number, required: true },
+  roomId: { type: String, required: true },
+  username: { type: String, required: true },
+});
+
+export const Leaderboard = mongoose.model('Leaderboard', leaderboardSchema);
