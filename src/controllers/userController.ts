@@ -43,17 +43,36 @@ export const updateUserScore = async (req: Request, res: Response) => {
 
 export const setupUser = async (req: Request, res: Response) => {
     const { walletAddress, username } = req.body;
+  
+    if (!walletAddress || !username) {
+        res.status(400).json({ error: 'walletAddress and username are required' });
+    }
+  
     try {
+      // Check if the username is already used by another user
+      const existingUsername = await User.findOne({ username });
+      const existingWalletUser = await User.findOne({ walletAddress });
+  
+      if (existingUsername && (!existingWalletUser || existingUsername.walletAddress !== walletAddress)) {
+        res.status(400).json({ error: 'Username already taken' });
+      }
+  
+      // Upsert user
       const user = await User.findOneAndUpdate(
         { walletAddress },
-        { $set: { username }, $setOnInsert: { isStaked: false, kills: 0, score: 0 } },
+        {
+          $set: { username },
+          $setOnInsert: { isStaked: false, kills: 0, score: 0 },
+        },
         { new: true, upsert: true }
       );
+  
       res.json(user);
     } catch (err) {
+      console.error(err);
       res.status(500).json({ error: 'Failed to setup user' });
     }
-};
+  };  
 
 // GET /api/user/:walletAddress
 export const getUser = async (req: Request, res: Response) => {
@@ -179,10 +198,10 @@ export const getUserStakeStatus = async (req: Request, res: Response) => {
 
 // POST /api/leaderboard/add
 export const addLeaderboardEntry = async (req: Request, res: Response) => {
-    const { walletAddress, kills, score, roomId, username } = req.body;
+    const { walletAddress, kills, score, roomId, username, gameTime } = req.body;
   
     try {
-      const entry = new Leaderboard({ walletAddress, kills, score, roomId, username });
+      const entry = new Leaderboard({ walletAddress, kills, score, roomId, username, gameTime });
       await entry.save();
       res.json(entry);
     } catch (err) {

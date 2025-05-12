@@ -6,6 +6,7 @@ const leaderboardSchema = new mongoose.Schema({
   score: { type: Number, required: true },
   roomId: { type: String, required: true },
   username: { type: String, required: true },
+  gameTime: { type: String, required: true}
 });
 
 export const Leaderboard = mongoose.model('Leaderboard', leaderboardSchema);
