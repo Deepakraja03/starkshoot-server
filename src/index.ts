@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { connectDB } from './config/db';
 import cors from 'cors';
 import apiRoutes from './routes/api';
+import contractRoutes from './routes/contractRoutes';
 
 dotenv.config();
 const app = express();
@@ -11,6 +12,7 @@ app.use(express.json());
 connectDB();
 
 app.use('/api', apiRoutes);
+app.use('/api', contractRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello from TypeScript Server!');
