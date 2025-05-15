@@ -62,7 +62,7 @@ export const setupUser = async (req: Request, res: Response) => {
         { walletAddress },
         {
           $set: { username },
-          $setOnInsert: { isStaked: false, kills: 0, score: 0 },
+          $setOnInsert: { isStaked: false, kills: 0, score: 0, currentRoom: '' },
         },
         { new: true, upsert: true }
       );
@@ -71,6 +71,32 @@ export const setupUser = async (req: Request, res: Response) => {
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Failed to setup user' });
+    }
+  };
+
+
+  export const updateCurrentRoom = async (req: Request, res: Response) => {
+    const { walletAddress, currentRoom } = req.body;
+  
+    if (!walletAddress || !currentRoom) {
+        res.status(400).json({ error: 'walletAddress and currentRoom are required' });
+    }
+  
+    try {
+      const user = await User.findOneAndUpdate(
+        { walletAddress },
+        { $set: { currentRoom } },
+        { new: true }
+      );
+  
+      if (!user) {
+        res.status(404).json({ error: 'User not found' });
+      }
+  
+      res.json({ message: 'Current room updated successfully', user });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to update current room' });
     }
   };  
 

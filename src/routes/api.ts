@@ -11,6 +11,7 @@ import {
     getUserStakeStatus,
     joinRoom,
     setupUser,
+    updateCurrentRoom,
     updateStakedStatus,
     updateUserScore
 } from '../controllers/userController';
@@ -26,6 +27,7 @@ router.get('/stake/history/:walletAddress', getStakingData);
 router.post('/user/update-score', updateUserScore);
 router.post('/stake', updateStakedStatus);
 router.get('/user/is-staked/:walletAddress', getUserStakeStatus);
+router.get('/user/update-currentroom', updateCurrentRoom);
 
 router.get('/user/rooms-played/:walletAddress', getRoomsPlayedWithUsernames);
 
