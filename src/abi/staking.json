@@ -15,9 +15,9 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "matchId",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"indexed": true,
@@ -32,9 +32,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "matchId",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"internalType": "address[]",
@@ -135,9 +135,9 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "matchId",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"indexed": true,
@@ -158,9 +158,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "matchId",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"internalType": "address",
@@ -217,9 +217,9 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "matchId",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"indexed": true,
@@ -234,9 +234,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "matchId",
-				"type": "uint256"
+				"type": "string"
 			}
 		],
 		"name": "withdrawAndClaim",
@@ -249,9 +249,9 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "matchId",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"indexed": true,
@@ -284,9 +284,9 @@
 		"name": "getAllStakeInfoForAddress",
 		"outputs": [
 			{
-				"internalType": "uint256[]",
+				"internalType": "string[]",
 				"name": "matchIds",
-				"type": "uint256[]"
+				"type": "string[]"
 			},
 			{
 				"internalType": "uint256[]",
@@ -341,9 +341,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "matchId",
-				"type": "uint256"
+				"type": "string"
 			}
 		],
 		"name": "getPlayersInMatch",
@@ -360,9 +360,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "matchId",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"internalType": "address",
@@ -394,9 +394,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"internalType": "address",
@@ -423,9 +423,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "",
-				"type": "uint256"
+				"type": "string"
 			}
 		],
 		"name": "matchWinners",
