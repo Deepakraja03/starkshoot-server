@@ -19,7 +19,7 @@ export const assignToMatch = async (req: Request, res: Response) => {
   }
 
   try {
-    const tx = await contract.assignToMatch(12, players);
+    const tx = await contract.assignToMatch(matchId, players);
     await tx.wait();
     res.json({ success: true, txHash: tx.hash });
   } catch (error: any) {
@@ -36,7 +36,7 @@ export const setWinner = async (req: Request, res: Response) => {
   }
 
   try {
-    const tx = await contract.setWinner(12, winner);
+    const tx = await contract.setWinner(matchId, winner);
     await tx.wait();
     res.json({ success: true, txHash: tx.hash });
   } catch (error: any) {
